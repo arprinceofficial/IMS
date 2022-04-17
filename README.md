@@ -20,7 +20,7 @@ user can sell items on that time we are going to decrease the stock
 user can take a items as a return also
 user can generate bill
 
-=======================================
+
 admin functionalities
 
 admin can login
