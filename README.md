@@ -9,10 +9,10 @@ we are going to generate this inventory management system it is also known as st
 
 basically there are two types of user in this system
 
-(1) user
-(2) admin
+(i) user
+(ii) admin
 
-user functionalities
+(1) user functionalities
 
 user can login
 user can add items on that time we are going to increase the stock
@@ -21,7 +21,7 @@ user can take a items as a return also
 user can generate bill
 
 
-admin functionalities
+(2) admin functionalities
 
 admin can login
 admin can add new user in this system (admin and user)
