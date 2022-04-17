@@ -22,7 +22,7 @@
             <div class="controls">
                 <div class="main_input_box">
                     <span class="add-on bg_lg"><i class="icon-user"> </i></span><input type="text"
-                                                                                       placeholder="Username" name="userid" required>
+                                                                                       placeholder="Username" name="username" required>
                 </div>
             </div>
         </div>
@@ -67,10 +67,10 @@ if(isset($_POST['submit1'])){
 
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-            $username = $_POST['userid'];
+            $username = $_POST['username'];
             $password = $_POST['password'];
             $count = 0;
-            $res = oci_parse($conn, "SELECT * FROM USER_INFO WHERE userid = '$username' AND password = '$password'");
+            $res = oci_parse($conn, "SELECT * FROM user_registration WHERE username = '$username' AND password = '$password'");
             oci_execute($res);
             $count = oci_fetch_row($res);
 

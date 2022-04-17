@@ -2,7 +2,7 @@
 // ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
 
 // $link = mysqli_connect("localhost", "root", "") or die(mysqli_error($link));
-// mysqli_select_db($link, "php_ims") or die(mysqli_error($link));
+// mysqli_select_db($link, "php_ims") or die(mysqli_error($link)); //php_ims is the database name
 
 // ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
 
@@ -10,7 +10,7 @@
 
 $db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)))(CONNECT_DATA=(SID=orcl)))" ;
 
-            if($conn = OCILogon("prince", "1234", $db))
+            if($conn = OCILogon("phphol", "welcome", $db))
             {
                 // echo "Successfully connected to Oracle.";
             }
