@@ -22,7 +22,7 @@
             <div class="controls">
                 <div class="main_input_box">
                     <span class="add-on bg_lg"><i class="icon-user"> </i></span><input type="text"
-                                                                                       placeholder="Username" name="username"/>
+                                                                                       placeholder="Username" name="userid" required>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="controls">
                 <div class="main_input_box">
                     <span class="add-on bg_ly"><i class="icon-lock"></i></span><input type="password"
-                                                                                      placeholder="Password" name="password"/>
+                                                                                      placeholder="Password" name="password" required>
                 </div>
             </div>
         </div>
@@ -55,12 +55,26 @@ if(isset($_POST['submit1'])){
     // else{
     //     echo "<script>alert('Invalid username or password')</script>";
     // }
-        $username = mysqli_real_escape_string($link, $_POST['username']);
-        $password = mysqli_real_escape_string($link, $_POST['password']);
+// ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
 
-        $count = 0;
-        $res = mysqli_query($link, "SELECT * FROM `user_registration` WHERE `username` = '$username' AND `password` = '$password'");
-        $count = mysqli_num_rows($res);
+        // $username = mysqli_real_escape_string($link, $_POST['username']);
+        // $password = mysqli_real_escape_string($link, $_POST['password']);
+        // $count = 0;
+        // $res = mysqli_query($link, "SELECT * FROM `user_registration` WHERE `username` = '$username' AND `password` = '$password'");
+        // $count = mysqli_num_rows($res);
+
+// ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
+
+// ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
+
+            $username = $_POST['userid'];
+            $password = $_POST['password'];
+            $count = 0;
+            $res = oci_parse($conn, "SELECT * FROM USER_INFO WHERE userid = '$username' AND password = '$password'");
+            oci_execute($res);
+            $count = oci_fetch_row($res);
+
+// ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
 
         if($count)
         {
