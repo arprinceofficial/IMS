@@ -9,7 +9,7 @@
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
 $db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)))(CONNECT_DATA=(SID=orcl)))" ;
-            if($conn = OCILogon("phphol", "welcome", $db))
+            if($conn = OCILogon("prince", "1234", $db))
             {
                 // echo "Successfully connected to Oracle.";
             }
