@@ -21,7 +21,7 @@
     <div id="header">
 
         <h2 style="color: white;position: absolute">
-            <a href="dashboard.html" style="color:white; margin-left: 30px; margin-top: 40px">PHP IMS</a>
+            <a href="dashboard.html" style="color:white; margin-left: 15px; margin-top: 40px">Admin - IMS</a>
         </h2>
     </div>
 
