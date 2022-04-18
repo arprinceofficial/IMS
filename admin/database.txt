@@ -1,0 +1,4 @@
+database name: php_ims
+
+
+table name: user_registration; Number of column : 7

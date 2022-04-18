@@ -52,6 +52,9 @@
             <li class="active">
                 <a href="index.html"><i class="icon icon-home"></i><span>Dashboard</span></a>
             </li>
+            <li>
+                <a href="add_new_user.php"><i class="icon icon-user"></i><span>Add New User</span></a>
+            </li>
 
             <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span
                 class="label label-important">3</span></a>
@@ -70,56 +73,3 @@
         <a href="index.html" style="color:white"><i class="icon icon-share-alt"></i><span>LogOut</span></a>
 
     </div>
-    <!--main-container-part-->
-    <div id="content">
-        <!--breadcrumbs-->
-        <div id="content-header">
-            <div id="breadcrumb"><a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>
-            Home</a></div>
-        </div>
-        <!--End-breadcrumbs-->
-
-        <!--Action boxes-->
-        <div class="container-fluid">
-
-            <div class="row-fluid" style="background-color: white; min-height: 1000px; padding:10px;">
-                sdsd
-            </div>
-
-        </div>
-    </div>
-
-    <!--end-main-container-part-->
-
-    <!--Footer-part-->
-
-    <div class="row-fluid">
-        <div id="footer" class="span12" style="color:white"> Designed And Developed By: Your Name</div>
-    </div>
-
-    <!--end-Footer-part-->
-
-    <script src="js/excanvas.min.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.ui.custom.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.flot.min.js"></script>
-    <script src="js/jquery.flot.resize.min.js"></script>
-    <script src="js/jquery.peity.min.js"></script>
-    <script src="js/fullcalendar.min.js"></script>
-    <script src="js/matrix.js"></script>
-    <script src="js/matrix.dashboard.js"></script>
-    <script src="js/jquery.gritter.min.js"></script>
-    <script src="js/matrix.interface.js"></script>
-    <script src="js/matrix.chat.js"></script>
-    <script src="js/jquery.validate.js"></script>
-    <script src="js/matrix.form_validation.js"></script>
-    <script src="js/jquery.wizard.js"></script>
-    <script src="js/jquery.uniform.js"></script>
-    <script src="js/select2.min.js"></script>
-    <script src="js/matrix.popover.js"></script>
-    <script src="js/jquery.dataTables.min.js"></script>
-    <script src="js/matrix.tables.js"></script>
-</body>
-
-</html>
