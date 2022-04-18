@@ -1,6 +1,6 @@
 <?php 
 include_once "header.php";
-include_once "../user/connection.php";
+include "../connection.php";
 ?>
 
     <div id="content">
@@ -75,6 +75,9 @@ include_once "../user/connection.php";
 
 
     <?php 
+  
+// ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
+
     // if(isset($_POST['sumbit1'])){
     //     $firstname = $_POST['firstname'];
     //     $lastname = $_POST['lastname'];
@@ -82,17 +85,28 @@ include_once "../user/connection.php";
     //     $password = $_POST['password'];
     //     $role = $_POST['role'];
 
-    //     $query = "INSERT INTO user_registration (id ,firstname, lastname, username, password, role, status) VALUES (NULL, '$firstname', '$lastname', '$username', '$password', '$role','active')";
-    //     $result = mysqli_query($conn, $query);
-    //     if($result){
-    //         echo "<script>document.getElementById('success').style.display = 'block';</script>";
+    //     $query = "SELECT * FROM user_registration WHERE username = '$username'";
+    //     $result = mysqli_query($link, $query);
+    //     if(mysqli_num_rows($result) > 0){
+    //         echo "<script>document.getElementById('error').style.display = 'block';</script>";
     //     }
     //     else{
-    //         echo "<script>document.getElementById('error').style.display = 'block';</script>";
+    //         $query = "INSERT INTO user_registration (id ,firstname, lastname, username, password, role, status) VALUES (NULL, '$firstname', '$lastname', '$username', '$password', '$role','active')";
+    //         $result = mysqli_query($link, $query);
+    //         if($result){
+    //             echo "<script>document.getElementById('success').style.display = 'block';</script>";
+    //         }
+    //         else{
+    //             echo "<script>document.getElementById('error').style.display = 'block';</script>";
+    //         }
     //     }
     // }
 
-    if(isset($_POST['sumbit1'])){
+// ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
+
+// ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
+
+     if(isset($_POST['sumbit1'])){
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
         $username = $_POST['username'];
@@ -100,13 +114,17 @@ include_once "../user/connection.php";
         $role = $_POST['role'];
 
         $query = "SELECT * FROM user_registration WHERE username = '$username'";
-        $result = mysqli_query($link, $query);
-        if(mysqli_num_rows($result) > 0){
+        $result = oci_parse($conn, $query);
+        oci_execute($result);
+
+        if(oci_fetch_array($result)){
             echo "<script>document.getElementById('error').style.display = 'block';</script>";
         }
+        
         else{
-            $query = "INSERT INTO user_registration (id ,firstname, lastname, username, password, role, status) VALUES (NULL, '$firstname', '$lastname', '$username', '$password', '$role','active')";
-            $result = mysqli_query($link, $query);
+            $query = "INSERT INTO user_registration (id ,firstname, lastname, username, password, role, status) VALUES (0, '$firstname', '$lastname', '$username', '$password', '$role','active')";
+            $result = oci_parse($conn, $query);
+            oci_execute($result);
             if($result){
                 echo "<script>document.getElementById('success').style.display = 'block';</script>";
             }
@@ -116,5 +134,8 @@ include_once "../user/connection.php";
         }
     }
     
+
+// ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
+
     ?>
 <?php include_once "footer.php"?>
