@@ -1,10 +1,10 @@
-<?php include "connection.php"; ?>
+<?php include "../user/connection.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Login - php inventory management system</title>
+    <title>Admin - Login</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -49,7 +49,7 @@ if(isset($_POST['submit1'])){
         $username = mysqli_real_escape_string($link, $_POST['username']);
         $password = mysqli_real_escape_string($link, $_POST['password']);
         $count = 0;
-        $res = mysqli_query($link, "SELECT * FROM `user_registration` WHERE `username` = '$username' && `password` = '$password' && role = 'user' &&  status = 'active'");
+        $res = mysqli_query($link, "SELECT * FROM `user_registration` WHERE `username` = '$username' && `password` = '$password' && role = 'admin' &&  status = 'active'");
         $count = mysqli_num_rows($res);
 
 // ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
@@ -77,7 +77,7 @@ if(isset($_POST['submit1'])){
         {
             ?> 
                 <div class="alert alert-danger" role="alert">
-                    Invalid username or password or account blocked by admin.
+                    Invalid username or password 
                 </div>
             <?php
         }
