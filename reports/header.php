@@ -39,12 +39,11 @@
                     <li class="divider"></li>
                     <li><a href="#"><i class="icon-check"></i> My Tasks</a></li>
                     <li class="divider"></li>
-                    <li><a href="index.php"><i class="icon-key"></i> Log Out</a></li>
+                    <li><a href="../user/index.php"><i class="icon-key"></i> Log Out</a></li>
                 </ul>
             </li>
-
-
         </ul>
+        
     </div>
 
     <!--sidebar-menu-->
@@ -54,13 +53,13 @@
                 <a href="demo.php"><i class="icon icon-home"></i><span>Dashboard</span></a>
             </li>
             <li>
-                <a href="reports.php"><i class="icon icon-home"></i><span>Reports</span></a>
+                <a href="../user/reports.php"><i class="icon icon-home"></i><span>Reports</span></a>
             </li>
         </ul>
     </div>
     <!--sidebar-menu-->
     <div id="search">
 
-        <a href="index.php" style="color:white"><i class="icon icon-share-alt"></i><span>LogOut</span></a>
+        <a href="index.html" style="color:white"><i class="icon icon-share-alt"></i><span>LogOut</span></a>
 
     </div>
