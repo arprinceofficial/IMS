@@ -57,18 +57,18 @@ include "../connection.php";
                                     <?php
 // ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
                                     
-                                        $sql = "SELECT * FROM UNITS";
-                                        $result = mysqli_query($link, $sql);
-                                        while($row = mysqli_fetch_assoc($result)){
+                                        // $sql = "SELECT * FROM UNITS";
+                                        // $result = mysqli_query($link, $sql);
+                                        // while($row = mysqli_fetch_assoc($result)){
 
 // ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
                                     
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-                                        // $query2 = "SELECT * FROM UNITS";
-                                        // $result2 = oci_parse($conn, $query2);
-                                        // oci_execute($result2);
-                                        // while($row = oci_fetch_array($result2, OCI_RETURN_NULLS+OCI_ASSOC)){
+                                        $query2 = "SELECT * FROM UNITS";
+                                        $result2 = oci_parse($conn, $query2);
+                                        oci_execute($result2);
+                                        while($row = oci_fetch_array($result2, OCI_RETURN_NULLS+OCI_ASSOC)){
 
 // ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
 
@@ -96,41 +96,15 @@ include "../connection.php";
   
 // ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
 
-    if(isset($_POST['sumbit1'])){
-        $unitname = $_POST['unitname'];
-
-        $query = "SELECT * FROM UNITS WHERE UNIT = '$unitname'";
-        $result = mysqli_query($link, $query);
-        
-        if($result){
-		$query = "INSERT INTO UNITS (ID ,UNIT) VALUES (NULL, '$unitname')" ;
-            	$result = mysqli_query($link, $query);
-                echo "<script>document.getElementById('success').style.display = 'block';
-                setTimeout(function(){
-                                window.location.href = window.location.href;
-                            }, 1000);
-                </script>";
-            }
-            else{
-                echo "<script>document.getElementById('error').style.display = 'block';</script>";
-            }
-    }
-
-// ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
-
-// ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
-
-    //  if(isset($_POST['sumbit1'])){
+    // if(isset($_POST['sumbit1'])){
     //     $unitname = $_POST['unitname'];
 
     //     $query = "SELECT * FROM UNITS WHERE UNIT = '$unitname'";
-    //     $result = oci_parse($link, $query);
-    //     oci_execute($result);
-
-    //      if($result){
+    //     $result = mysqli_query($link, $query);
+        
+    //     if($result){
 	// 	$query = "INSERT INTO UNITS (ID ,UNIT) VALUES (NULL, '$unitname')" ;
-    //         	$result = oci_parse($link, $query);
-    //             oci_execute($result);
+    //         	$result = mysqli_query($link, $query);
     //             echo "<script>document.getElementById('success').style.display = 'block';
     //             setTimeout(function(){
     //                             window.location.href = window.location.href;
@@ -141,6 +115,32 @@ include "../connection.php";
     //             echo "<script>document.getElementById('error').style.display = 'block';</script>";
     //         }
     // }
+
+// ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
+
+// ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
+
+     if(isset($_POST['sumbit1'])){
+        $unitname = $_POST['unitname'];
+
+        $query = "SELECT * FROM UNITS WHERE UNIT = '$unitname'";
+        $result = oci_parse($conn, $query);
+        oci_execute($result);
+        
+        if($result){
+		$query = "INSERT INTO UNITS (ID ,UNIT) VALUES ('', '$unitname')" ;
+            	$result = oci_parse($conn, $query);
+                oci_execute($result);
+                echo "<script>document.getElementById('success').style.display = 'block';
+                setTimeout(function(){
+                                window.location.href = window.location.href;
+                            }, 1000);
+                </script>";
+            }
+            else{
+                echo "<script>document.getElementById('error').style.display = 'block';</script>";
+            }
+    }
     
 
 // ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------

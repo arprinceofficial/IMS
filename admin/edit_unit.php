@@ -4,32 +4,32 @@ include "../connection.php";
 
 // ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
 
-$id = $_GET["ID"];
-$unit = "";
+// $id = $_GET["ID"];
+// $unit = "";
 
 
-$query = "SELECT * FROM UNITS WHERE ID='$id'";
+// $query = "SELECT * FROM UNITS WHERE ID='$id'";
 
-$result = mysqli_query($link, $query);
-    while($row = mysqli_fetch_array($result)){
-         $unit = $row["UNIT"];
-    }
+// $result = mysqli_query($link, $query);
+//     while($row = mysqli_fetch_array($result)){
+//          $unit = $row["UNIT"];
+//     }
 
 
 // ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
 
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-// $id = $_GET["ID"];
-// $unit = "";
+$id = $_GET["ID"];
+$unit = "";
 
-// $query = "SELECT * FROM UNITS WHERE ID='$id'";
+$query = "SELECT * FROM UNITS WHERE ID='$id'";
 
-// $result = oci_parse($conn, $query);
-// oci_execute($result);
-//     while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
-//         $unit = $row["UNIT"];
-//     }
+$result = oci_parse($conn, $query);
+oci_execute($result);
+    while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
+        $unit = $row["UNIT"];
+    }
 
 // ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
 
@@ -84,14 +84,14 @@ $result = mysqli_query($link, $query);
 if(isset($_POST['sumbit1'])){
 // ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
 
-    mysqli_query($link, "UPDATE UNITS SET UNIT='$_POST[unit]' WHERE ID='$id'");
+    // mysqli_query($link, "UPDATE UNITS SET UNIT='$_POST[unit]' WHERE ID='$id'");
 
 // ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
 
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-    // $result = oci_parse($conn, "UPDATE UNITS SET UNIT='$_POST[unit]' WHERE ID='$id'");
-    // oci_execute($result);
+    $result = oci_parse($conn, "UPDATE UNITS SET UNIT='$_POST[unit]' WHERE ID='$id'");
+    oci_execute($result);
 
 // ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
 

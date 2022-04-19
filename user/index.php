@@ -46,22 +46,22 @@
 if(isset($_POST['submit1'])){
 // ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
 
-        // $username = mysqli_real_escape_string($link, $_POST['username']);
-        // $password = mysqli_real_escape_string($link, $_POST['password']);
-        // $count = 0;
-        // $res = mysqli_query($link, "SELECT * FROM `user_registration` WHERE `username` = '$username' && `password` = '$password' && role = 'user' &&  status = 'active'");
-        // $count = mysqli_num_rows($res);
+        $username = mysqli_real_escape_string($link, $_POST['username']);
+        $password = mysqli_real_escape_string($link, $_POST['password']);
+        $count = 0;
+        $res = mysqli_query($link, "SELECT * FROM `user_registration` WHERE `username` = '$username' && `password` = '$password' && role = 'user' &&  status = 'active'");
+        $count = mysqli_num_rows($res);
 
 // ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
 
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $count = 0;
-            $res = oci_parse($conn, "SELECT * FROM user_registration WHERE username = '$username' AND password = '$password'");
-            oci_execute($res);
-            $count = oci_fetch_row($res);
+            // $username = $_POST['username'];
+            // $password = $_POST['password'];
+            // $count = 0;
+            // $res = oci_parse($conn, "SELECT * FROM user_registration WHERE username = '$username' AND password = '$password'");
+            // oci_execute($res);
+            // $count = oci_fetch_row($res);
 
 // ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
 
