@@ -4,6 +4,29 @@ include "../connection.php";
 
 // ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
 
+// $username = $_GET["USERNAME"];
+// $firstname = "";
+// $lastname = "";
+// $password = "";
+// $status = "";
+// $role = "";
+
+// $query = "SELECT * FROM user_registration WHERE USERNAME='$username'";
+
+// $result = mysqli_query($link, $query);
+//     while($row = mysqli_fetch_array($result)){
+//          $firstname = $row["FIRSTNAME"];
+//          $lastname = $row["LASTNAME"];
+//          $password = $row["PASSWORD"];
+//          $role = $row["ROLE"];
+//          $status = $row["STATUS"];
+//     }
+
+
+// ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
+
+// ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
+
 $username = $_GET["USERNAME"];
 $firstname = "";
 $lastname = "";
@@ -11,41 +34,17 @@ $password = "";
 $status = "";
 $role = "";
 
-$query = "SELECT * FROM user_registration WHERE USERNAME='$username'";
+$query = "SELECT * FROM USER_REGISTRATION WHERE USERNAME='$username'";
 
-$result = mysqli_query($link, $query);
-    while($row = mysqli_fetch_array($result)){
-         $firstname = $row["FIRSTNAME"];
+$result = oci_parse($conn, $query);
+oci_execute($result);
+    while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
+        $firstname = $row["FIRSTNAME"];
         $lastname = $row["LASTNAME"];
         $password = $row["PASSWORD"];
         $role = $row["ROLE"];
         $status = $row["STATUS"];
     }
-
-
-// ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
-
-// ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
-
-// $username = $_GET["USERNAME"];
-
-// $firstname = "";
-// $lastname = "";
-// $password = "";
-// $status = "";
-// $role = "";
-
-// $query = "SELECT * FROM USER_REGISTRATION WHERE USERNAME='$username'";
-
-// $result = oci_parse($conn, $query);
-// oci_execute($result);
-//     while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
-//         $firstname = $row["FIRSTNAME"];
-//         $lastname = $row["LASTNAME"];
-//         $password = $row["PASSWORD"];
-//         $role = $row["ROLE"];
-//         $status = $row["STATUS"];
-//     }
 
 // ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
 
@@ -134,7 +133,7 @@ $result = mysqli_query($link, $query);
                             
                                 
                                 <div class="form-actions">
-                                    <button type="submit" name="sumbit1" class="btn btn-success">Save</button>
+                                    <button type="submit" name="sumbit1" class="btn btn-success">Update</button>
                                 </div>
                                 <div  class="alert alert-success" role="alert" id="success" style="text-align: center; display:none;">
                                     Updated Successful.
@@ -149,9 +148,29 @@ $result = mysqli_query($link, $query);
         </div>
     </div>
 
-<?php 
+<?php
+
 if(isset($_POST['sumbit1'])){
-    
+// ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
+
+    // mysqli_query($link, "UPDATE user_registration SET FIRSTNAME='$_POST[firstname]', LASTNAME='$_POST[lastname]', PASSWORD='$_POST[password]', ROLE='$_POST[role]', STATUS='$_POST[status]' WHERE USERNAME='$username'");
+
+// ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
+
+// ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
+
+    $result = oci_parse($conn, "UPDATE USER_REGISTRATION SET FIRSTNAME='$_POST[firstname]', LASTNAME='$_POST[lastname]', PASSWORD='$_POST[password]', ROLE='$_POST[role]', STATUS='$_POST[status]' WHERE USERNAME='$username'");
+    oci_execute($result);
+
+// ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
+
+    echo "<script>document.getElementById('success').style.display = 'block';
+    setTimeout(function(){
+        window.location = 'add_new_user.php';
+    }, 100);
+    </script>";
+
+
 }
 ?>
 
