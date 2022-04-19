@@ -2,7 +2,7 @@
 Inventory Management System
 
 
-in this system we are going to use PHP and as a backend we are going to use MYSQLI
+in this system we are going to use PHP and as a backend we are going to use MYSQLI and Oracle 
 
 we are going to generate this inventory management system it is also known as stock management system this is totally dynamic system so if you want to use this system for supermarket then also you can use and if you want to use for medical store then also you can use, so this will work in any environment. here also you will learn Inventory Management System PHP, Stock Management System In PHP, Sales and Inventory System PHP,pos system in PHP,PHP Stock Management System,Stock Management System In PHP,php inventory management system,php inventory script,php inventory management system tutorial,php inventory management system open source,Online Inventory Management Software with PHP,php stock management system,Creating a Custom Inventory Management Application in PHP,PHP Mysql Inventory Management System using Ajax ,Point of Sale System (POS) using PHP,warehouse management system project in php
 
