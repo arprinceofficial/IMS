@@ -2,3 +2,58 @@ database name: php_ims
 
 
 table name: user_registration; Number of column : 7
+
+
+
+  <!-- View Users -->
+            <div class="widget-content nopadding">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>UserName</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+// ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
+                                    
+                                        // $sql = "SELECT * FROM USER_REGISTRATION";
+                                        // $result = mysqli_query($link, $sql);
+                                        // while($row = mysqli_fetch_assoc($result)){
+
+// ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
+                                    
+// ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
+
+                                        $query2 = "SELECT * FROM USER_REGISTRATION";
+                                        $result2 = oci_parse($conn, $query2);
+                                        oci_execute($result2);
+                                        while($row = oci_fetch_array($result2, OCI_RETURN_NULLS+OCI_ASSOC)){
+
+// ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
+
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $row["FIRSTNAME"]; ?></td>
+                                                    <td><?php echo $row["LASTNAME"]; ?></td>
+                                                    <td><?php echo $row["USERNAME"]; ?></td>
+                                                    <td><?php echo $row["ROLE"]; ?></td>
+                                                    <td><?php echo $row["STATUS"]; ?></td>
+                                                    <td><a herf="" style="cursor: pointer;">Edit</a></td>
+                                                    <td><a href="delete_user.php ? USERNAME=<?php echo $row["USERNAME"]; ?>" style="cursor: pointer;">Delete</a></td>
+                                                </tr>
+                                            <?php
+                                        }
+                                    ?>
+
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+            <!-- End View Users -->
