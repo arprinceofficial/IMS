@@ -3,10 +3,10 @@ include_once "header.php";
 include "../connection.php";
 
 // ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
+
 $username = $_GET["USERNAME"];
 $firstname = "";
 $lastname = "";
-$username = "";
 $password = "";
 $status = "";
 $role = "";
@@ -14,12 +14,42 @@ $role = "";
 $query = "SELECT * FROM user_registration WHERE USERNAME='$username'";
 
 $result = mysqli_query($link, $query);
-    while($row = mysqli_fetch_row($result)){
-        $firstname = $row['firstname'];
+    while($row = mysqli_fetch_array($result)){
+         $firstname = $row["FIRSTNAME"];
+        $lastname = $row["LASTNAME"];
+        $password = $row["PASSWORD"];
+        $role = $row["ROLE"];
+        $status = $row["STATUS"];
     }
 
 
 // ------------------------------------------------------------- MySqli Connection Setup END--------------------------------------------------------------
+
+// ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
+
+// $username = $_GET["USERNAME"];
+
+// $firstname = "";
+// $lastname = "";
+// $password = "";
+// $status = "";
+// $role = "";
+
+// $query = "SELECT * FROM USER_REGISTRATION WHERE USERNAME='$username'";
+
+// $result = oci_parse($conn, $query);
+// oci_execute($result);
+//     while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
+//         $firstname = $row["FIRSTNAME"];
+//         $lastname = $row["LASTNAME"];
+//         $password = $row["PASSWORD"];
+//         $role = $row["ROLE"];
+//         $status = $row["STATUS"];
+//     }
+
+// ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
+
+
 ?>
 
     <div id="content">
@@ -49,7 +79,7 @@ $result = mysqli_query($link, $query);
                                 <div class="control-group">
                                     <label class="control-label">Last Name :</label>
                                     <div class="controls">
-                                        <input type="text" class="span11" placeholder="Last name" name="lastname" />
+                                        <input type="text" class="span11" placeholder="Last name" name="lastname" value="<?php echo "$lastname"; ?>"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -61,7 +91,7 @@ $result = mysqli_query($link, $query);
                                 <div class="control-group">
                                     <label class="control-label">Password input</label>
                                     <div class="controls">
-                                        <input type="password" class="span11" placeholder="Enter Password" name="password" "/>
+                                        <input type="password" class="span11" placeholder="Enter Password" name="password" value="<?php echo "$password"; ?>"/>
                                     </div>
                                 </div>
 
@@ -69,9 +99,16 @@ $result = mysqli_query($link, $query);
                                     <label class="control-label">Select Role</label>
                                     <div class="controls">
                                         <select name="role" class="span3" >
-                                            <option value="">None</option>
-                                            <option <?php if($role=="admin") ?> >Admin</option>
-                                            <option <?php if($role=="user") ?>>User</option>
+                                            <?php
+                                                if($role == "admin"){
+                                                    echo "<option value='admin' selected>Admin</option>";
+                                                    echo "<option value='user'>User</option>";
+                                                }
+                                                else{
+                                                    echo "<option value='admin'>Admin</option>";
+                                                    echo "<option value='user' selected>User</option>";
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -80,9 +117,16 @@ $result = mysqli_query($link, $query);
                                     <label class="control-label">Select Status</label>
                                     <div class="controls">
                                         <select name="status" class="span3" >
-                                            <option value="">None</option>
-                                            <option value="admin">Active</option>
-                                            <option value="user">Inactive</option>
+                                            <?php
+                                                if($status == "active"){
+                                                    echo "<option value='active' selected>Active</option>";
+                                                    echo "<option value='inactive'>Inactive</option>";
+                                                }
+                                                else{
+                                                    echo "<option value='active'>Active</option>";
+                                                    echo "<option value='inactive' selected>Inactive</option>";
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
