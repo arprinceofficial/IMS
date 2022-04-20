@@ -77,7 +77,7 @@ include "../connection.php";
                                                     <td><?php echo $row["ID"]; ?></td>
                                                     <td><?php echo $row["UNIT"]; ?></td>
                                                     <td><a href="edit_unit.php?ID=<?php echo $row["ID"]; ?>" style="cursor: pointer;">Edit</a></td>
-                                                    <td><a href="delete_unit.php?ID=<?php echo $row["ID"]; ?>" style="cursor: pointer;">Delete</a></td>
+                                                    <td><a href="delete_unit.php?ID=<?php echo $row["ID"]; ?>" style="cursor: pointer; color:red;">Delete</a></td>
                                                 </tr>
                                             <?php
                                         }

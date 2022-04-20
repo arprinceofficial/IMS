@@ -110,7 +110,7 @@ include "../connection.php";
                                                     <td><?php echo $row["ROLE"]; ?></td>
                                                     <td><?php echo $row["STATUS"]; ?></td>
                                                     <td><a href="edit_user.php?USERNAME=<?php echo $row["USERNAME"]; ?>" style="cursor: pointer;">Edit</a></td>
-                                                    <td><a href="delete_user.php?USERNAME=<?php echo $row["USERNAME"]; ?>" style="cursor: pointer;">Delete</a></td>
+                                                    <td><a href="delete_user.php?USERNAME=<?php echo $row["USERNAME"]; ?>" style="cursor: pointer; color:red;">Delete</a></td>
                                                 </tr>
                                             <?php
                                         }
