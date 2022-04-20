@@ -50,7 +50,7 @@
     <div id="sidebar">
         <ul>
             <li class="active">
-                <a href="index.html"><i class="icon icon-home"></i><span>Dashboard</span></a>
+                <a href="demo.php"><i class="icon icon-home"></i><span>Dashboard</span></a>
             </li>
             <li>
                 <a href="add_new_user.php"><i class="icon icon-user"></i><span>Add New User</span></a>
@@ -59,14 +59,7 @@
                 <a href="add_new_unit.php"><i class="icon icon-user"></i><span>Add New Unit</span></a>
             </li>
 
-            <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span
-                class="label label-important">3</span></a>
-                <ul>
-                    <li><a href="form-common.html">Basic Form</a></li>
-                    <li><a href="form-validation.html">Form with Validation</a></li>
-                    <li><a href="form-wizard.html">Form with Wizard</a></li>
-                </ul>
-            </li>
+            
 
         </ul>
     </div>
