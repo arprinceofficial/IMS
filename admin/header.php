@@ -65,8 +65,12 @@
                 <a href="add_new_unit.php"><i class="icon icon-user"></i><span>Add New Unit</span></a>
             </li>
             <li>
+                <a href="add_company.php"><i class="icon icon-user"></i><span>Add Company</span></a>
+            </li>
+            <li>
                 <a href="add_new_party.php"><i class="icon icon-user"></i><span>Add New Party</span></a>
             </li>
+            
 
             
 
