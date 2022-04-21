@@ -68,6 +68,9 @@
                 <a href="add_company.php"><i class="icon icon-user"></i><span>Add Company</span></a>
             </li>
             <li>
+                <a href="add_products.php"><i class="icon icon-user"></i><span>Add Products</span></a>
+            </li>
+            <li>
                 <a href="add_new_party.php"><i class="icon icon-user"></i><span>Add New Party</span></a>
             </li>
             
