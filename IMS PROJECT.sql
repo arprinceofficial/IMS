@@ -170,3 +170,46 @@ BEGIN
 END COMPANY_NAME_TRI;
 
 --------------------------------------------------------: Table COMPANY_NAME definition :------------------------------------------------------
+
+
+
+--------------------------------------------------------: Table PRODUCTS definition :------------------------------------------------------
+
+CREATE TABLE PRODUCTS
+(
+    ID               NUMBER (10) NOT NULL PRIMARY KEY,
+    COMPANY_NAME     VARCHAR2 (100),
+    PRODUCT_NAME     VARCHAR2 (100),
+    UNIT             VARCHAR2 (10),
+    PACKING_SIZE     NUMBER (10)
+);
+
+-------------------------------------------------------------------SEQ--------------------------------------------------------------
+
+
+CREATE SEQUENCE PRODUCTS_SEQ
+START WITH 1 
+INCREMENT BY 1
+NOCACHE 
+NOCYCLE;
+
+-------------------------------------------------------------------TRI--------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER PRODUCTS_TRI
+    BEFORE INSERT OR UPDATE
+    ON PRODUCTS
+    FOR EACH ROW
+BEGIN
+    IF INSERTING
+    THEN
+        IF (:NEW.ID) IS NULL
+        THEN
+            :NEW.ID := PRODUCTS_SEQ.NEXTVAL;
+        END IF;
+    
+    END IF;
+END PRODUCTS_TRI;
+
+--------------------------------------------------------: Table PRODUCTS definition :------------------------------------------------------
+
+
