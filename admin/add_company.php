@@ -65,7 +65,7 @@ include "../connection.php";
                                     
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-                                        $query2 = "SELECT * FROM COMPANY_NAME";
+                                        $query2 = "SELECT * FROM COMPANY_NAME ORDER BY ID ASC";
                                         $result2 = oci_parse($conn, $query2);
                                         oci_execute($result2);
                                         while($row = oci_fetch_array($result2, OCI_RETURN_NULLS+OCI_ASSOC)){
@@ -122,31 +122,28 @@ include "../connection.php";
 
      if(isset($_POST['sumbit1'])){
         $company_name = $_POST['company_name'];
+        $count = 0;
 
-        $query = "SELECT * FROM COMPANY_NAME WHERE (COMPANY_NAME) = '$company_name'";
-        // $query = "SELECT UPPER(COMPANY_NAME) FROM COMPANY_NAME WHERE (COMPANY_NAME) = '$company_name';";
+        $query = "SELECT * FROM COMPANY_NAME WHERE (COMPANY_NAME) = UPPER('$company_name')";
         $result = oci_parse($conn, $query);
         oci_execute($result);
-
-        if(oci_fetch_array($result)){
-            echo "<script>document.getElementById('error').style.display = 'block';</script>";
+        while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
+            $count++;
         }
-        
-        else{
-            $query = "INSERT INTO COMPANY_NAME (COMPANY_NAME) VALUES ('$company_name')" ;
+        if($count == 0){
+            $query = "INSERT INTO COMPANY_NAME (COMPANY_NAME) VALUES ( UPPER('$company_name'))" ;
             $result = oci_parse($conn, $query);
             oci_execute($result);
-            if($result){
-                echo "<script>document.getElementById('success').style.display = 'block';
-                    setTimeout(function(){
-                                window.location.href = window.location.href;
-                            }, 1000);
-                </script>";
-            }
-            else{
-                echo "<script>document.getElementById('error').style.display = 'block';</script>";
-            }
+            echo "<script>document.getElementById('success').style.display = 'block';
+            setTimeout(function(){
+                            window.location.href = window.location.href;
+                        }, 1000);
+            </script>";
         }
+        else{
+            echo "<script>document.getElementById('error').style.display = 'block';</script>";
+        }
+
     }
 
 // ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------

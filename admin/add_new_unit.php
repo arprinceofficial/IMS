@@ -65,7 +65,7 @@ include "../connection.php";
                                     
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-                                        $query2 = "SELECT * FROM UNITS";
+                                        $query2 = "SELECT * FROM UNITS ORDER BY ID ASC";
                                         $result2 = oci_parse($conn, $query2);
                                         oci_execute($result2);
                                         while($row = oci_fetch_array($result2, OCI_RETURN_NULLS+OCI_ASSOC)){

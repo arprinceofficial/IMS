@@ -43,7 +43,7 @@ include "../connection.php";
                                 <div class="control-group">
                                     <label class="control-label">Contact</label>
                                     <div class="controls">
-                                        <input  class="span11" placeholder="Enter Contact No." name="contact" required/>
+                                        <input type="number" min="11"  class="span11" placeholder="Enter Contact No." name="contact" required/>
                                     </div>
                                 </div>
 
@@ -61,7 +61,9 @@ include "../connection.php";
                                     </div>
                                 </div>
 
-                                
+                                  <div  class="alert alert-danger" role="alert" id="error" style="text-align: center; display:none;">
+                                    This Business Name is already Exists in our Database. Please try another one.
+                                </div>
                                 
                                 <div class="form-actions">
                                     <button type="submit" name="sumbit1" class="btn btn-success">Save</button>
@@ -101,7 +103,7 @@ include "../connection.php";
                                     
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-                                        $query2 = "SELECT * FROM PARTY_INFO";
+                                        $query2 = "SELECT * FROM PARTY_INFO ORDER BY ID ASC";
                                         $result2 = oci_parse($conn, $query2);
                                         oci_execute($result2);
                                         while($row = oci_fetch_array($result2, OCI_RETURN_NULLS+OCI_ASSOC)){
@@ -175,22 +177,44 @@ include "../connection.php";
         $contact = $_POST['contact'];
         $address = $_POST['address'];
         $city = $_POST['city'];
+        $count = 0;
+
+        $query = "SELECT * FROM PARTY_INFO WHERE BUSSINESS_NAME = UPPER('$bussiness_name')";
+        $result = oci_parse($conn, $query);
+        oci_execute($result);
+        while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
+            $count++;
+        }
+        
+        if($count == 0){
+            $query = "INSERT INTO PARTY_INFO (FIRSTNAME, LASTNAME, BUSSINESS_NAME, CONTACT, ADDRESS, CITY) VALUES (UPPER('$firstname'), UPPER('$lastname'), UPPER('$bussiness_name'), '$contact', UPPER('$address'), UPPER('$city'))";
+            $result = oci_parse($conn, $query);
+            oci_execute($result);
+            echo "<script>document.getElementById('success').style.display = 'block';
+            setTimeout(function(){
+                            window.location.href = window.location.href;
+                        }, 1000);
+            </script>"; 
+        }
+        else{
+                echo "<script>document.getElementById('error').style.display = 'block';</script>";
+            }
 
         
       
-            $query = "INSERT INTO PARTY_INFO (FIRSTNAME, LASTNAME, BUSSINESS_NAME, CONTACT, ADDRESS, CITY) VALUES ('$firstname', '$lastname', '$bussiness_name', '$contact', '$address', '$city')";
-            $result = oci_parse($conn, $query);
-            oci_execute($result);
-            if($result){
-                echo "<script>document.getElementById('success').style.display = 'block';
-                    setTimeout(function(){
-                                window.location.href = window.location.href;
-                            }, 1000);
-                </script>";
-            }
-            else{
-                echo "<script>document.getElementById('error').style.display = 'block';</script>";
-            }
+            // $query = "INSERT INTO PARTY_INFO (FIRSTNAME, LASTNAME, BUSSINESS_NAME, CONTACT, ADDRESS, CITY) VALUES (UPPER('$firstname'), UPPER('$lastname'), UPPER('$bussiness_name'), '$contact', UPPER('$address'), UPPER('$city'))";
+            // $result = oci_parse($conn, $query);
+            // oci_execute($result);
+            // if($result){
+            //     echo "<script>document.getElementById('success').style.display = 'block';
+            //         setTimeout(function(){
+            //                     window.location.href = window.location.href;
+            //                 }, 1000);
+            //     </script>";
+            // }
+            // else{
+            //     echo "<script>document.getElementById('error').style.display = 'block';</script>";
+            // }
         
     }
     
