@@ -7,7 +7,7 @@ include "../connection.php";
         <!--breadcrumbs-->
         <div id="content-header">
             <div id="breadcrumb"><a href="index.html" class="tip-bottom"><i class="icon-home"></i>
-            Add New Unit</a></div>
+            Add Company</a></div>
         </div>
         <!--End-breadcrumbs-->
 
@@ -17,19 +17,19 @@ include "../connection.php";
             <div class="row-fluid" style="background-color: white;  padding:10px;">
                 <div class="widget-box">
                         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-                            <h5>Add New Unit</h5>
+                            <h5>Add Company</h5>
                         </div>
                         <div class="widget-content nopadding">
                             <form action="" name="form1" method="POST" class="form-horizontal">
                                 <div class="control-group">
-                                    <label class="control-label">Unit Name :</label>
+                                    <label class="control-label">Company Name :</label>
                                     <div class="controls">
-                                        <input type="text" class="span11" placeholder="Unit Name" name="unitname" required/>
+                                        <input type="text" class="span11" placeholder="Company Name" name="company_name" required/>
                                     </div>
                                 </div>
                                 
                                 <div  class="alert alert-danger" role="alert" id="error" style="text-align: center; display:none;">
-                                    This Unit already exists. Please try another one.
+                                    This Company already exists. Please try another one.
                                 </div>
                                 
                                 <div class="form-actions">
@@ -48,7 +48,7 @@ include "../connection.php";
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Unit Name</th>
+                                        <th>Company Name</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -65,7 +65,7 @@ include "../connection.php";
                                     
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-                                        $query2 = "SELECT * FROM UNITS";
+                                        $query2 = "SELECT * FROM COMPANY_NAME";
                                         $result2 = oci_parse($conn, $query2);
                                         oci_execute($result2);
                                         while($row = oci_fetch_array($result2, OCI_RETURN_NULLS+OCI_ASSOC)){
@@ -75,9 +75,9 @@ include "../connection.php";
                                             ?>
                                                 <tr>
                                                     <td><?php echo $row["ID"]; ?></td>
-                                                    <td><?php echo $row["UNIT"]; ?></td>
-                                                    <td><a href="edit_unit.php?ID=<?php echo $row["ID"]; ?>" style="cursor: pointer;">Edit</a></td>
-                                                    <td><a href="delete_unit.php?ID=<?php echo $row["ID"]; ?>" style="cursor: pointer; color:red;">Delete</a></td>
+                                                    <td><?php echo $row["COMPANY_NAME"]; ?></td>
+                                                    <td><a href="edit_company.php?ID=<?php echo $row["ID"]; ?>" style="cursor: pointer;">Edit</a></td>
+                                                    <td><a href="delete_company.php?ID=<?php echo $row["ID"]; ?>" style="cursor: pointer; color:red;">Delete</a></td>
                                                 </tr>
                                             <?php
                                         }
@@ -97,13 +97,13 @@ include "../connection.php";
 // ------------------------------------------------------------- MySqli Connection Setup Start------------------------------------------------------------
 
     // if(isset($_POST['sumbit1'])){
-    //     $unitname = $_POST['unitname'];
+    //     $company_name = $_POST['unitname'];
 
-    //     $query = "SELECT * FROM UNITS WHERE UNIT = '$unitname'";
+    //     $query = "SELECT * FROM UNITS WHERE UNIT = '$company_name'";
     //     $result = mysqli_query($link, $query);
         
     //     if($result){
-	// 	$query = "INSERT INTO UNITS (ID ,UNIT) VALUES (NULL, '$unitname')" ;
+	// 	$query = "INSERT INTO UNITS (ID ,UNIT) VALUES (NULL, '$company_name')" ;
     //         	$result = mysqli_query($link, $query);
     //             echo "<script>document.getElementById('success').style.display = 'block';
     //             setTimeout(function(){
@@ -121,18 +121,24 @@ include "../connection.php";
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
      if(isset($_POST['sumbit1'])){
-        $unitname = $_POST['unitname'];
+        $company_name = $_POST['company_name'];
 
-        $query = "SELECT * FROM UNITS WHERE UNIT = '$unitname'";
+        $query = "SELECT * FROM COMPANY_NAME WHERE (COMPANY_NAME) = '$company_name'";
+        // $query = "SELECT UPPER(COMPANY_NAME) FROM COMPANY_NAME WHERE (COMPANY_NAME) = '$company_name';";
         $result = oci_parse($conn, $query);
         oci_execute($result);
+
+        if(oci_fetch_array($result)){
+            echo "<script>document.getElementById('error').style.display = 'block';</script>";
+        }
         
-        if($result){
-		$query = "INSERT INTO UNITS (ID ,UNIT) VALUES ('', '$unitname')" ;
-            	$result = oci_parse($conn, $query);
-                oci_execute($result);
+        else{
+            $query = "INSERT INTO COMPANY_NAME (COMPANY_NAME) VALUES ('$company_name')" ;
+            $result = oci_parse($conn, $query);
+            oci_execute($result);
+            if($result){
                 echo "<script>document.getElementById('success').style.display = 'block';
-                setTimeout(function(){
+                    setTimeout(function(){
                                 window.location.href = window.location.href;
                             }, 1000);
                 </script>";
@@ -140,8 +146,8 @@ include "../connection.php";
             else{
                 echo "<script>document.getElementById('error').style.display = 'block';</script>";
             }
+        }
     }
-    
 
 // ------------------------------------------------------------ Oracle Connection Setup End---------------------------------------------------------------
 
