@@ -157,31 +157,26 @@ include "../connection.php";
         $product_name = $_POST['product_name'];
         $unit         = $_POST['unit'];
         $packing_name = $_POST['packing_name'];
+        $count = 0;
 
-
-        $query = "SELECT * FROM PRODUCTS WHERE COMPANY_NAME = '$company_name' AND PRODUCT_NAME = '$product_name' AND UNIT = '$unit' AND PACKING_SIZE = '$packing_name'";
-        
+        $query = "SELECT  PRODUCT_NAME FROM PRODUCTS WHERE PRODUCT_NAME = upper('$product_name')";
         $result = oci_parse($conn, $query);
         oci_execute($result);
-
-        if(oci_fetch_array($result)){
-            echo "<script>document.getElementById('error').style.display = 'block';</script>";
+        while ($row = oci_fetch_array($result)) {
+            $count++;
         }
-        
-        else{
+
+        if($count == 0){
             $query = "INSERT INTO PRODUCTS (COMPANY_NAME, PRODUCT_NAME, UNIT, PACKING_SIZE) VALUES (UPPER('$company_name'), UPPER('$product_name'), UPPER('$unit'), '$packing_name')";
             $result = oci_parse($conn, $query);
             oci_execute($result);
-            if($result){
-                echo "<script>document.getElementById('success').style.display = 'block';
-                    setTimeout(function(){
-                                window.location.href = window.location.href;
+            echo "<script>document.getElementById('success').style.display = 'block';
+                        setTimeout(function(){
+                            window.location.href = window.location.href;
                             }, 1000);
                 </script>";
-            }
-            else{
-                echo "<script>document.getElementById('error').style.display = 'block';</script>";
-            }
+        }else{
+            echo "<script>document.getElementById('error').style.display = 'block';</script>";
         }
     }
 
