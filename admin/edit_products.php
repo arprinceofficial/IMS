@@ -2,20 +2,20 @@
 include_once "header.php";
 include "../connection.php";
 
-$id = $_GET['id'];
+$id = $_GET['ID'];
 $company_name = "";
 $product_name = "";
 $unit = "";
 $pack_size = "";
 
-$query = "SELECT * FROM PRODUCTS WHERE PRODUCT_ID='$id'";
-$result = oci_parse($link, $query);
+$query = "SELECT * FROM PRODUCTS WHERE ID='$id'";
+$result = oci_parse($conn, $query);
 oci_execute($result);
 while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
     $company_name = $row["COMPANY_NAME"];
     $product_name = $row["PRODUCT_NAME"];
     $unit = $row["UNIT"];
-    $pack_size = $row["PACK_SIZE"];
+    $pack_size = $row["PACKING_SIZE"];
 }
 ?>
 
@@ -49,11 +49,12 @@ while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
                                                 $result = oci_parse($conn, $sql);
                                                 oci_execute($result);
                                                 while ($row = oci_fetch_array($result)) {
-                                                    // echo "<option value='" . $row['ID'] . "'>" . $row['COMPANY_NAME'] . "</option>";
-                                                    echo "<option>";
-                                                    echo $row['COMPANY_NAME'];
-                                                    echo "</option>";
-                                            }
+                                                    ?>
+                                                        <option value="<?php echo $row['COMPANY_NAME']; ?>" <?php if($row['COMPANY_NAME'] == $company_name){ echo "selected"; } ?>> 
+                                                            <?php echo $row['COMPANY_NAME']; ?>
+                                                        </option>
+                                                    <?php
+                                                }
                                             ?>
                                         </select>
                                     </div>
@@ -63,7 +64,7 @@ while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
                                     <label class="control-label">Enter Product Name</label>
 
                                     <div class="controls">
-                                       <input type="text" class="span11" name="product_name" placeholder="Enter Product Name" />
+                                       <input type="text" class="span11" name="product_name" placeholder="Enter Product Name" value="<?php echo $product_name ?>">
                                     </div>
                                 </div>
 
@@ -79,10 +80,11 @@ while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
                                             $result = oci_parse($conn, $sql);
                                             oci_execute($result);
                                             while ($row = oci_fetch_array($result)) {
-                                                // echo "<option value='" . $row['ID'] . "'>" . $row['COMPANY_NAME'] . "</option>";
-                                                echo "<option>";
-                                                echo $row['UNIT'];
-                                                echo "</option>";
+                                                ?>
+                                                <option value="<?php echo strtoupper($row['UNIT']); ?>" <?php if(strtoupper($row['UNIT']) == $unit){ echo "selected"; } ?>> 
+                                                    <?php echo strtoupper($row['UNIT']); ?>
+                                                </option>
+                                                <?php
                                             }
                                             ?>
                                             </select>
@@ -96,7 +98,7 @@ while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
                                     <label class="control-label">Enter Packing Size</label>
 
                                     <div class="controls">
-                                       <input type="text" class="span11" name="packing_name" placeholder="Enter Packing Size" />
+                                       <input type="text" class="span11" name="packing_size" placeholder="Enter Packing Size" value="<?php echo $pack_size ?>">
                                     </div>
                                 </div>
                                 
@@ -108,7 +110,7 @@ while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
                                     <button type="submit" name="sumbit1" class="btn btn-success">Save</button>
                                 </div>
                                 <div  class="alert alert-success" role="alert" id="success" style="text-align: center; display:none;">
-                                    Registration Successful.
+                                    Update Successful.
                                 </div>
                             </form>
                         </div>
@@ -128,11 +130,10 @@ while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
         $company_name = $_POST['company_name'];
         $product_name = $_POST['product_name'];
         $unit         = $_POST['unit'];
-        $packing_name = $_POST['packing_name'];
+        $packing_size = $_POST['packing_size'];
 
 
-        $query = "SELECT * FROM PRODUCTS WHERE COMPANY_NAME = '$company_name' AND PRODUCT_NAME = '$product_name' AND UNIT = '$unit' AND PACKING_SIZE = '$packing_name'";
-        
+        $query = "UPDATE PRODUCTS SET COMPANY_NAME='$company_name', PRODUCT_NAME='$product_name', UNIT='$unit', PACKING_SIZE='$packing_size' WHERE ID='$id'";
         $result = oci_parse($conn, $query);
         oci_execute($result);
 
@@ -141,13 +142,13 @@ while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
         }
         
         else{
-            $query = "INSERT INTO PRODUCTS (COMPANY_NAME, PRODUCT_NAME, UNIT, PACKING_SIZE) VALUES ('$company_name', '$product_name', '$unit', '$packing_name')";
+            $query = "INSERT INTO PRODUCTS (COMPANY_NAME, PRODUCT_NAME, UNIT, PACKING_SIZE) VALUES (UPPER('$company_name'), UPPER('$product_name'), UPPER('$unit'), '$packing_size')";
             $result = oci_parse($conn, $query);
             oci_execute($result);
             if($result){
                 echo "<script>document.getElementById('success').style.display = 'block';
                     setTimeout(function(){
-                                window.location.href = window.location.href;
+                                window.location.href = 'add_products.php';
                             }, 1000);
                 </script>";
             }

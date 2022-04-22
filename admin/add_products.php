@@ -80,7 +80,7 @@ include "../connection.php";
                                     <label class="control-label">Enter Packing Size</label>
 
                                     <div class="controls">
-                                       <input type="text" class="span11" name="packing_name" placeholder="Enter Packing Size" />
+                                       <input type="text" class="span11" name="packing_size" placeholder="Enter Packing Size" />
                                     </div>
                                 </div>
                                 
@@ -117,7 +117,7 @@ include "../connection.php";
                                   
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-                                        $query2 = "SELECT * FROM PRODUCTS";
+                                        $query2 = "SELECT * FROM PRODUCTS ORDER BY ID ASC";
                                         $result2 = oci_parse($conn, $query2);
                                         oci_execute($result2);
                                         while($row = oci_fetch_array($result2, OCI_RETURN_NULLS+OCI_ASSOC)){
@@ -156,7 +156,7 @@ include "../connection.php";
         $company_name = $_POST['company_name'];
         $product_name = $_POST['product_name'];
         $unit         = $_POST['unit'];
-        $packing_name = $_POST['packing_name'];
+        $packing_size = $_POST['packing_size'];
         $count = 0;
 
         $query = "SELECT  PRODUCT_NAME FROM PRODUCTS WHERE PRODUCT_NAME = upper('$product_name')";
@@ -167,7 +167,7 @@ include "../connection.php";
         }
 
         if($count == 0){
-            $query = "INSERT INTO PRODUCTS (COMPANY_NAME, PRODUCT_NAME, UNIT, PACKING_SIZE) VALUES (UPPER('$company_name'), UPPER('$product_name'), UPPER('$unit'), '$packing_name')";
+            $query = "INSERT INTO PRODUCTS (COMPANY_NAME, PRODUCT_NAME, UNIT, PACKING_SIZE) VALUES (UPPER('$company_name'), UPPER('$product_name'), UPPER('$unit'), '$packing_size')";
             $result = oci_parse($conn, $query);
             oci_execute($result);
             echo "<script>document.getElementById('success').style.display = 'block';
