@@ -44,17 +44,14 @@ END USER_REGISTRATION_TRI;
 
 ------------------- 3RD CREATE TABLE TRIGGER END -------------------
 
---------------------------------------------------: Table user_registration definition :------------------------------------------------
-
----------------------------------------------------------------:INSERT DATA:------------------------------------------------------------
-
 select * from user_registration;
 
 insert into user_registration values ('','AR','Prince','prince','1234','user', 'active');
 
 insert into user_registration values ('', 'admin','admin','admin','admin','admin', 'active');
 
----------------------------------------------------------------:INSERT DATA:------------------------------------------------------------
+--------------------------------------------------: Table user_registration definition :------------------------------------------------
+
 
 --------------------------------------------------------: Table UNITS definition :------------------------------------------------------
 
@@ -213,3 +210,32 @@ END PRODUCTS_TRI;
 --------------------------------------------------------: Table PRODUCTS definition :------------------------------------------------------
 
 
+
+SELECT * FROM PRODUCTS;
+
+SELECT * FROM COMPANY_NAME;
+
+
+TRUNCATE TABLE PRODUCTS;
+
+ROLLBACK;
+
+
+ALTER TABLE PRODUCTS
+ADD CONSTRAINT PRODUCT_NAME_CONST UNIQUE (PRODUCT_NAME);
+
+
+
+DECLARE 
+vPROD_NAME VARCHAR2(200);
+BEGIN
+SELECT  COUNT(*)  ---INTO vPROD_NAME
+FROM PRODUCTS
+WHERE PRODUCT_NAME = upper('manGo');
+    IF 
+    vPROD_NAME > 0 THEN 
+    DBMS_OUTPUT.PUT_LINE('THIS IS ALREADY BAJE');
+    ELSE 
+    DBMS_OUTPUT.PUT_LINE('THIS IS NOT ALREADY BAJE');
+    END IF;
+END;
