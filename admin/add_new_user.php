@@ -136,13 +136,13 @@ include "../connection.php";
     //     $password = $_POST['password'];
     //     $role = $_POST['role'];
 
-    //     $query = "SELECT * FROM user_registration WHERE username = '$username'";
+    //     $query = "SELECT * FROM USER_REGISTRATION WHERE username = '$username'";
     //     $result = mysqli_query($link, $query);
     //     if(mysqli_num_rows($result) > 0){
     //         echo "<script>document.getElementById('error').style.display = 'block';</script>";
     //     }
     //     else{
-    //         $query = "INSERT INTO user_registration (id ,firstname, lastname, username, password, role, status) VALUES (NULL, '$firstname', '$lastname', '$username', '$password', '$role','active')";
+    //         $query = "INSERT INTO USER_REGISTRATION (id ,firstname, lastname, username, password, role, status) VALUES (NULL, '$firstname', '$lastname', '$username', '$password', '$role','active')";
     //         $result = mysqli_query($link, $query);
     //         if($result){
     //             echo "<script>document.getElementById('success').style.display = 'block';
@@ -166,31 +166,54 @@ include "../connection.php";
         $lastname = $_POST['lastname'];
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $role = $_POST['role'];
+        $role = strtolower($_POST['role']);
+        $count = 0;
 
-        $query = "SELECT * FROM user_registration WHERE username = '$username'";
+        $query = "SELECT UPPER(USERNAME) FROM USER_REGISTRATION WHERE UPPER(USERNAME) = UPPER('$username')";
         $result = oci_parse($conn, $query);
         oci_execute($result);
-
-        if(oci_fetch_array($result)){
-            echo "<script>document.getElementById('error').style.display = 'block';</script>";
+        while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
+            $count++;
         }
-        
-        else{
-            $query = "INSERT INTO user_registration (firstname, lastname, username, password, role, status) VALUES ( '$firstname', '$lastname', '$username', '$password', '$role','active')";
+        if($count == 0){
+            $query = "INSERT INTO USER_REGISTRATION (ID ,FIRSTNAME, LASTNAME, USERNAME, PASSWORD, ROLE, STATUS) VALUES (NULL, '$firstname', '$lastname', '$username', '$password', LOWER('$role'),'active')";
             $result = oci_parse($conn, $query);
             oci_execute($result);
-            if($result){
-                echo "<script>document.getElementById('success').style.display = 'block';
-                    setTimeout(function(){
-                                window.location.href = window.location.href;
+             echo "<script>document.getElementById('success').style.display = 'block';
+                        setTimeout(function(){
+                            window.location.href = window.location.href;
                             }, 1000);
                 </script>";
-            }
-            else{
-                echo "<script>document.getElementById('error').style.display = 'block';</script>";
-            }
         }
+        else{
+            echo "<script>document.getElementById('error').style.display = 'block';</script>";
+        }
+     
+
+
+
+
+        // if(oci_fetch_array($result)){
+        //     echo "<script>document.getElementById('error').style.display = 'block';</script>";
+        // }
+        
+        // else{
+        //     $query = "INSERT INTO USER_REGISTRATION (firstname, lastname, username, password, role, status) VALUES ( '$firstname', '$lastname', '$username', '$password', '$role','active')";
+        //     $result = oci_parse($conn, $query);
+        //     oci_execute($result);
+        //     if($result){
+        //         echo "<script>document.getElementById('success').style.display = 'block';
+        //             setTimeout(function(){
+        //                         window.location.href = window.location.href;
+        //                     }, 1000);
+        //         </script>";
+        //     }
+        //     else{
+        //         echo "<script>document.getElementById('error').style.display = 'block';</script>";
+        //     }
+        // }
+
+        
     }
     
 

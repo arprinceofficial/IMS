@@ -56,10 +56,10 @@ if(isset($_POST['submit1'])){
 
 // ------------------------------------------------------------ Oracle Connection Setup Start-------------------------------------------------------------
 
-            $username = $_POST['username'];
+            $username = strtoupper($_POST['username']);
             $password = $_POST['password'];
             $count = 0;
-            $res = oci_parse($conn, "SELECT * FROM user_registration WHERE username = '$username' AND password = '$password' AND role = 'admin' AND  status = 'active'");
+            $res = oci_parse($conn, "SELECT * FROM user_registration WHERE UPPER(username) = '$username' AND password = '$password' AND role = 'admin' AND  status = 'active'");
             oci_execute($res);
             $count = oci_fetch_row($res);
 

@@ -175,7 +175,8 @@ include "../connection.php";
                             window.location.href = window.location.href;
                             }, 1000);
                 </script>";
-        }else{
+        }
+        else{
             echo "<script>document.getElementById('error').style.display = 'block';</script>";
         }
     }

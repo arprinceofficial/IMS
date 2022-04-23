@@ -124,14 +124,14 @@ include "../connection.php";
         $company_name = $_POST['company_name'];
         $count = 0;
 
-        $query = "SELECT * FROM COMPANY_NAME WHERE (COMPANY_NAME) = UPPER('$company_name')";
+        $query = "SELECT UPPER(COMPANY_NAME) FROM COMPANY_NAME WHERE UPPER(COMPANY_NAME) = UPPER('$company_name')";
         $result = oci_parse($conn, $query);
         oci_execute($result);
         while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
             $count++;
         }
         if($count == 0){
-            $query = "INSERT INTO COMPANY_NAME (COMPANY_NAME) VALUES ( UPPER('$company_name'))" ;
+            $query = "INSERT INTO COMPANY_NAME (COMPANY_NAME) VALUES ( '$company_name')" ;
             $result = oci_parse($conn, $query);
             oci_execute($result);
             echo "<script>document.getElementById('success').style.display = 'block';

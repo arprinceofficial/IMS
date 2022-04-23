@@ -179,7 +179,7 @@ include "../connection.php";
         $city = $_POST['city'];
         $count = 0;
 
-        $query = "SELECT * FROM PARTY_INFO WHERE BUSSINESS_NAME = UPPER('$bussiness_name')";
+        $query = "SELECT UPPER(BUSSINESS_NAME) FROM PARTY_INFO WHERE UPPER(BUSSINESS_NAME) = UPPER('$bussiness_name')";
         $result = oci_parse($conn, $query);
         oci_execute($result);
         while($row = oci_fetch_array($result, OCI_RETURN_NULLS+OCI_ASSOC)){
