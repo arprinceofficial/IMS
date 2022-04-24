@@ -73,6 +73,9 @@
             <li>
                 <a href="add_new_party.php"><i class="icon icon-user"></i><span>Add New Party</span></a>
             </li>
+            <li>
+                <a href="purchase_master.php"><i class="icon icon-user"></i><span>Purchase Master</span></a>
+            </li>
             
 
             

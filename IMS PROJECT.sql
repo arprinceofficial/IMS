@@ -211,6 +211,49 @@ END PRODUCTS_TRI;
 
 
 
+--------------------------------------------------------: Table PURCHASE_MASTER definition :------------------------------------------------------
+
+CREATE TABLE PURCHASE_MASTER
+(
+    ID               NUMBER (10) NOT NULL PRIMARY KEY,
+    COMPANY_NAME     VARCHAR2 (100),
+    PRODUCT_NAME     VARCHAR2 (100),
+    UNIT             VARCHAR2 (100),
+    PACKING_SIZE     VARCHAR2 (100),
+    QUANTITY         VARCHAR2 (100),
+    PRICE            VARCHAR2 (100),
+    PARTY_NAME       VARCHAR2 (100),
+    PURCHASE_TYPE    VARCHAR2 (100),
+    EXPIRY_DATE      DATE
+);
+
+-------------------------------------------------------------------SEQ--------------------------------------------------------------
+
+
+CREATE SEQUENCE PURCHASE_MASTER_SEQ
+START WITH 1 
+INCREMENT BY 1
+NOCACHE 
+NOCYCLE;
+
+-------------------------------------------------------------------TRI--------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER PURCHASE_MASTER_TRI
+    BEFORE INSERT OR UPDATE
+    ON PURCHASE_MASTER
+    FOR EACH ROW
+BEGIN
+    IF INSERTING
+    THEN
+        IF (:NEW.ID) IS NULL
+        THEN
+            :NEW.ID := PURCHASE_MASTER_SEQ.NEXTVAL;
+        END IF;
+    
+    END IF;
+END PURCHASE_MASTER_TRI;
+
+--------------------------------------------------------: Table PURCHASE_MASTER definition :------------------------------------------------------
 SELECT * FROM PRODUCTS;
 
 SELECT * FROM COMPANY_NAME;
